@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 単語帳管理アプリ
 
-## Getting Started
+Next.jsのAppRouterの勉強のために作ったコンテンツ管理サービスです。
+micro-cmsのAPIを叩いてCRUDをしています。
 
-First, run the development server:
+## 使用技術
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### メイン
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js App Router
+- nuqs
+- conform
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### UI周り
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- shadcn/ui
+  - (tailwind,radix-ui)
 
-## Learn More
+### 補助ツール
+- t3-oss/env-nextjs
+- zod
 
-To learn more about Next.js, take a look at the following resources:
+### 開発補助
+- babel-plugin-react-compiler
+- biome
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ポイント
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### ディレクトリ構成
 
-## Deploy on Vercel
+一つの画面でしか使わないコンポーネントやロジックは、そのページのそばに置きます。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+例：/create/page.tsxでしか使わないformコンポーネントは/create/components/form.tsxにおいています。
+componentsの他に、hooks,utilsを置くことが可能です。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+複数画面で使うコンポーネントはsrc/componentsに置きます。1ファイルで完結するようなものはsrc/components/hover-prefetch-link.tsxのように置きます。
+1ファイルで完結しないようなものや、複数のファイルを纏めたほうが良い場合はディレクトリを作ります。例：src/components/pagination
+
+
+shadcnからコピーしたコンポーネントはsrc/components/shadcnに入れます。原則として、shadcnからコピーしたコンポーネントは、スタイル以外変更してはいけません。
+拡張したい場合は新しくコンポーネントを作ってください。
+
+src/hooksには複数画面で使うhooksをおいてください
+src/utilsには複数画面で使う関数または定数をおいてください。
+src/typesには複数画面で使う型をおいてください。ただし、src/hooksやsrc/utilsにもそれに関連する型を置くことは可能です。
